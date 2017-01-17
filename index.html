@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html> 
+<html> 
+<head> 
+<nav>
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo center">音樂天地~~</a>
+      <ul id="nav-mobile" class="left hide-on-med-and-down">
+        <li><a href="https://mandy0711.github.io/111111/">好聽的歌</a></li>
+        <li><a href="https://mandy0711.github.io/333/">推薦的音樂</a></li>
+		
+         <li><a href="https://mandy0711.github.io/555/">台中音樂地圖</a></li>
+		 <li><a href="https://mandy0711.github.io/222/">首頁-聽音樂的好處</a></li>
+      </ul>
+    </div>
+  </nav>
+  <!--Import Google Icon Font-->
+      <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+       <!--Import jQuery before materialize.js-->
+	    
+	   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script type="text/javascript" src="js/materialize.min.js"></script>
+	<script>
+	var list =["https://www.youtube.com/embed/tOUDx2ZfTGE","https://www.youtube.com/embed/HW4J8Lb2PCM","https://www.youtube.com/embed/ouR4nn1G9r4","https://www.youtube.com/embed/A7PoMDw18qs"]
+		function changeVedio(i){
+		document.getElementById("frame").src = list[i];
+		document.getElementById("A"+i).className = "collection-item active";
+	  }
+	  
+	 
+	
+	</script>
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+	<input type="button" value="更多精選好歌" onclick="location.href='https://www.youtube.com/channel/UChBWp1_pPnE02FmU3A5BGaA/playlists?sort=dd&view=1&shelf_id=0'"style="width:200px;height:50px;font-size:20px;font-family:Microsoft JhengHei;background-color:#99BBFF;box-shadow:3px 3px 12px #0066FF;width:200px;line-height:50px;text-align:center;">
+</head> 
+
+<body> 
+<!--Import jQuery before materialize.js-->
+      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script type="text/javascript" src="js/materialize.min.js"></script>
+	<div id="VideoThumbs"></div>
+	
+	<script type="text/javascript">
+
+		var apiKey = "AIzaSyCIlwa-7d7qpKS0Nj5vhI7tb-0minC-qZ8";
+
+		function getVideos(pid, apiKey) {
+			$.get("https://www.googleapis.com/youtube/v3/playlistItems", {
+				part: "snippet,contentDetails",
+				maxResults: 50,
+				playlistId: pid,
+				key: apiKey},
+				function (data) {
+					document.getElementById("VideoThumbs").innerHTML += '<div style="color:blue;">~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</div>';
+					$.each(data.items, function (i, item) {
+						var str = '<div style="float:left;font-size:small;margin:5px;">';
+						str += '<a href="https://youtu.be/' + item.snippet.resourceId.videoId + '" target="_blank"><img src="' + item.snippet.thumbnails.medium.url + '" /><br />' + item.snippet.title + '</a><br />';
+						if (item.contentDetails.note !== undefined) str += '<a href="' + item.contentDetails.note + '" target="_blank">延伸閱讀</a><br />';
+						str += '</div>';
+						document.getElementById("VideoThumbs").innerHTML += str;
+					})
+				}
+			);
+		}
+		
+		getVideos("PLlf8qXZwHwzj4nJgtlyUFPbx2pHSbntBY", apiKey)
+		
+	</script>	
+</body>
+</html>
